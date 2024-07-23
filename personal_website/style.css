@@ -14,7 +14,7 @@
     --hover-color:#12f7ff;
     --bg-color: #250821;
     --secon-bg-color:#2922e33;
-    --big-font:1.5rem;
+    --big-font:2.5rem;
     --normal-font:2rem;
     --neon-box-shadow: 0 0 10px #12f7ff, 0 0 20px #12f7ff, 0 0 40px #12f7ff, 0 0 80px #12f7ff;
     --font-neon-text-shadow:
@@ -87,4 +87,45 @@ span{
     border-radius: 3px;
     color: var(--secon-bg-color);
     display: none;
+}
+
+section{
+    padding: 100px 10%;
+}
+
+.home{
+    min-width: 100vh;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    grid-gap: 4em;
+}
+
+.home-content{
+    max-width: 600px;
+}
+
+.home-content h1{
+    font-size: var(--big-font);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.change-text{
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.change-text h3{
+    display: inline-flex;
+    margin: 0;
+    vertical-align: top;
+}
+
+.change-text h3 .word{
+    position:absolute ;
+    display: flex;
+    opacity: 0;
 }
