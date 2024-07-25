@@ -1,8 +1,6 @@
-Sure! Here's a draft for a GitHub repository README file for "Headstarter AI":
-
----
 
 # Headstarter AI
+----
 
 ![Headstarter AI Logo](https://framerusercontent.com/images/fP9Evsnp42PXLTXr2lEJDVDs34Y.png?scale-down-to=512)
 
