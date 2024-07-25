@@ -4,7 +4,7 @@ Sure! Here's a draft for a GitHub repository README file for "Headstarter AI":
 
 # Headstarter AI
 
-![Headstarter AI Logo](path/to/logo.png)
+![Headstarter AI Logo](https://framerusercontent.com/images/fP9Evsnp42PXLTXr2lEJDVDs34Y.png?scale-down-to=512)
 
 **Headstarter AI** is an advanced artificial intelligence framework designed to jumpstart your AI projects. Whether you're working on machine learning, natural language processing, or computer vision, Headstarter AI provides the tools and resources to get you up and running quickly.
 
