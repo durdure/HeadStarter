@@ -493,6 +493,74 @@ a.btn:hover::before{
 }
 
 
+.skills{
+    background: var(--secon-bg-color);
+}
+
+
+.skill-main{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 30px;
+    grid-column-gap: 20px;
+}
+
+.skill-bar{
+    margin-bottom: 2.3rem;
+}
+
+.skill-main h3{
+    font-size: var(--normal-font);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.skill-left .skill-bar .info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; 
+}
+
+.skill-left .skill-bar .bar{
+    height: 10px;
+    background: #fddfdf;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-bar .bar span{
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: 0;
+    background: var(--hover-color);
+    border-radius: 25px;
+    box-shadow: var(--neon-box-shadow);
+
+}
+
+.skill-bar .bar .html{
+    width: 90%;
+    animation: html 2s;
+}
+
+.skill-bar .bar .surpac{
+    width: 60%;
+    animation: surpac 2s;
+}
+
+.skill-bar .bar .javascript{
+    width: 70%;
+    animation: javascript 2s;
+}
+
+.skill-bar .bar .css{
+    width: 80%;
+    animation: css 2s;
+}
 /* Contact section */
 
 
@@ -537,3 +605,43 @@ a.btn:hover::before{
         border-radius: 69% 31% 25% 75% / 30% 30% 70% 70%;
     }
 }
+
+
+@keyframes html {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 72%;
+    }
+}
+
+@keyframes surpac {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 60%;
+    }
+}
+
+@keyframes javascript {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 70%;
+    }
+}
+
+@keyframes css {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 80%;
+    }
+}
+
+
+/* Responsive */
