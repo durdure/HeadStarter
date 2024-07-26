@@ -499,11 +499,10 @@ a.btn:hover::before{
 
 
 .skill-main{
-    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-row-gap: 30px;
-    grid-column-gap: 20px;
+    align-items: center;
+    gap: 13em;
 }
 
 .skill-bar{
@@ -560,6 +559,57 @@ a.btn:hover::before{
 .skill-bar .bar .css{
     width: 80%;
     animation: css 2s;
+}
+
+
+.professional{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.professional .box{
+    text-align: center;
+    color: #fff;
+    font-size: 1rem;
+}
+ 
+.box{
+    margin: 10px 0;
+    flex: 1 1 15rem;
+}
+
+.box .text{
+    text-align: center;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.box .text big{
+    font: 400;
+    letter-spacing: 1px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.box .text small{
+    display: flex;
+    font-weight: 600;
+}
+.circle{
+   width: 100%;
+   height: 120px;
+   display: flex;
+   justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+}
+
+.circle .points{
+    width: 2px;
+    height: 10px;
+    
 }
 /* Contact section */
 
