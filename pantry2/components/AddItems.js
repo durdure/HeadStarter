@@ -8,19 +8,24 @@ import { TextField,
       TableHead,
       TableRow,
       Paper, 
-      Tab} from '@mui/material';
+      IconButton} from '@mui/material';
 import { db } from './../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import {v4 as uuidv4} from 'uuid';
+import {getStorage, ref, upLoadBytes, getDownloadURL} from 'firebase/storage';
 
 const AddItems = () => {
   const [item, setItem] = useState('');
   const [items, setItems] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [image, setImage] = useState('');
 
-  const handleAdd = () => {
+
+  const handleAdd = async () => {
     setItems([...items, {item, quantity: parseInt(quantity)}]);
     setItem('');
     setQuantity('');
+
   };
 
   const handleRemove = (index) => {
