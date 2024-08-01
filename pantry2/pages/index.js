@@ -1,5 +1,6 @@
 import React from "react";
-import AddItems from "./../components/addItems";
+import AddItems from "../components/AddItems";
+import ItemList from "../components/ItemList";
 
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
         duresa
       </h1>
       <AddItems/>
+      <ItemList/>
     </div>
   );
 }
