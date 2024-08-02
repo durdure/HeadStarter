@@ -52,7 +52,8 @@ const AddItems = () => {
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
-      margin:'10%'
+      backgroundColor: '#f9f9f9',
+      width: '40%',
     }}
     >
       <form onSubmit={handleSubmit}>

@@ -92,7 +92,17 @@ const ItemList = () => {
     
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper}
+    
+    style={
+      {
+        display: 'flex',
+        width: '40%',
+        marginLeft: '20%',
+        position: 'relative',
+       
+      }}
+    >
       <Table>
         <TableHead>
           <TableRow>
@@ -168,18 +178,14 @@ const ItemList = () => {
           <button
           onClick={handleEditSave}
           className='bg-green-500 text-white p-10 rounded-md col-primary-500'
-
           >
            Save
           </button>
         </DialogActions>
       </Dialog>
-
-
-
-
     </TableContainer>
   );
 };
+
 
 export default ItemList;
