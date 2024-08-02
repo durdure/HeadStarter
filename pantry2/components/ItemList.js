@@ -62,36 +62,34 @@ const ItemList = () => {
     setEditImage(null);
   };
 
+
   const handleEditSave = async () => {
     const itemDoc = doc(db, 'pantry', editItem.id);
-    const updateItem = { quantity: parseInt(editQuantity, 10)};
+    const updatedData = { quantity: parseInt(editQuantity, 10) };
 
-    if (setEditImage){
-      const imageName = uuidv4() + "_" + editImage.name;
+    if (editImage) {
+      const imageName = uuidv4() + '-' + editImage.name;
       const storage = getStorage();
-      const storageRef = ref(storage, 'images/', imageName);
+      const storageRef = ref(storage, 'images/' + imageName);
 
-      try{
-        await imageName (uploadBytes(storageRef, editImage));
+      try {
+        await uploadBytes(storageRef, editImage);
         const imageUrl = await getDownloadURL(storageRef);
-        updateItem.image = imageUrl;
+        updatedData.imageUrl = imageUrl;
+      } catch (error) {
+        console.error("Error uploading image: ", error);
+      }
+    }
 
-        }catch (error){
-          console.error("Error uploading image: ", error);
-        }
-     };
-
-     try {
+    try {
       await updateDoc(itemDoc, updatedData);
       setItems(items.map(item => (item.id === editItem.id ? { ...item, ...updatedData } : item)));
       handleEditClose();
     } catch (error) {
       console.error("Error updating document: ", error);
     }
-
-  };
+  }
     
-
 
   return (
     <TableContainer component={Paper}>
