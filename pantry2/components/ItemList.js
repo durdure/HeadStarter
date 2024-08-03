@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import { db } from './../lib/firebase';
-import { collection, query, onSnapshot, deleteDoc, updateDoc, doc } from 'firebase/firestore';
+// components/ItemList.js
+import React, { useState } from 'react';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import {
   Table,
   TableBody,
@@ -16,176 +17,116 @@ import {
   DialogContent,
   DialogTitle,
 } from '@mui/material';
-import { getStorage, uploadBytes } from 'firebase/storage';
+import styles from '../styles/Home.module.css';
 
-const ItemList = () => {
-  const [items, setItems] = useState([]);
+const ItemList = ({ items, searchTerm, onSelectItem }) => {
   const [editOpen, setEditOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [editQuantity, setEditQuantity] = useState('');
-  const [editImage, setEditImage] = useState(null);
 
-
-  useEffect(() => {
-    const q = query(collection(db, 'pantry'));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push({ ...doc.data(), id: doc.id });
-      });
-      setItems(items);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  const handleDelete = async (id) => {
+  const handleRemove = async (id) => {
     try {
       await deleteDoc(doc(db, 'pantry', id));
-      setItems(items.filter((item) => item.id !== id));
-    }catch (error) {
+    } catch (error) {
       console.error('Error removing document: ', error);
     }
   };
 
-
-  const handleEditOpen = () => {
-    setEditItem(items);
-    setEditQuantity(items.quantity);
+  const handleEditOpen = (item) => {
+    setEditItem(item);
+    setEditQuantity(item.quantity);
     setEditOpen(true);
-  }
+  };
 
   const handleEditClose = () => {
     setEditOpen(false);
     setEditItem(null);
     setEditQuantity('');
-    setEditImage(null);
   };
-
 
   const handleEditSave = async () => {
     const itemDoc = doc(db, 'pantry', editItem.id);
     const updatedData = { quantity: parseInt(editQuantity, 10) };
 
-    if (editImage) {
-      const imageName = uuidv4() + '-' + editImage.name;
-      const storage = getStorage();
-      const storageRef = ref(storage, 'images/' + imageName);
-
-      try {
-        await uploadBytes(storageRef, editImage);
-        const imageUrl = await getDownloadURL(storageRef);
-        updatedData.imageUrl = imageUrl;
-      } catch (error) {
-        console.error("Error uploading image: ", error);
-      }
-    }
-
     try {
       await updateDoc(itemDoc, updatedData);
-      setItems(items.map(item => (item.id === editItem.id ? { ...item, ...updatedData } : item)));
       handleEditClose();
     } catch (error) {
-      console.error("Error updating document: ", error);
+      console.error('Error updating document: ', error);
     }
-  }
-    
+  };
+
+  const filteredItems = items.filter((item) =>
+    item.item.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <TableContainer component={Paper}
-    
-    style={
-      {
-        display: 'flex',
-        width: '40%',
-        marginLeft: '20%',
-        position: 'relative',
-       
-      }}
-    >
-      <Table>
+    <TableContainer component={Paper} className={styles.tableContainer}>
+      <Table className={styles.table}>
         <TableHead>
           <TableRow>
             <TableCell>Item</TableCell>
             <TableCell>Quantity</TableCell>
-            <TableCell>image</TableCell>
-             <TableCell>Actions</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((item) => (
-            <TableRow key={item.id}
-            className='hover:bg-gray-100'
-            >
+          {filteredItems.map((item) => (
+            <TableRow key={item.id} onClick={() => onSelectItem(item)} className={styles.tableRow}>
               <TableCell>{item.item}</TableCell>
               <TableCell>{item.quantity}</TableCell>
-               <TableCell>
-                <img
-                src={item.imageUrl}
-                alt={item.items}
-                className='h-10 w-10 flex-shrink-0 object-cover object-center'
-                />
-               </TableCell>
-              
-               <TableCell>
+              <TableCell>
                 <Button
-                className='mr-2 col-primary-500'
-                onClick={() => handleEditOpen(item)}
-                variant='contained'
-                color='primary'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEditOpen(item);
+                  }}
+                  variant="contained"
+                  color="primary"
+                  className={styles.button}
                 >
                   Edit
                 </Button>
                 <Button
-                onClick={() => handleDelete(item.id)}
-                className='col-primary-500, bg-red-500, variant=contained'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemove(item.id);
+                  }}
+                  variant="contained"
+                  color="secondary"
+                  className={styles.button}
                 >
-                 Remove
+                  Remove
                 </Button>
-               </TableCell>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
 
       <Dialog open={editOpen} onClose={handleEditClose}>
-        <DialogTitle>
-          Edit Item
-        </DialogTitle>
+        <DialogTitle>Edit Item</DialogTitle>
         <DialogContent>
           <TextField
-          label='Quantity'
-          value={editQuantity}
-          onChange={(e) => setEditQuantity(e.target.value)}
-          fullWidth
-          className='m-normal'
-          type='number'
+            label="Quantity"
+            value={editQuantity}
+            onChange={(e) => setEditQuantity(e.target.value)}
+            type="number"
+            fullWidth
+            margin="normal"
           />
-          <input
-          type='file'
-          accept='image/*'
-          onChange={(e) => setEditImage(e.target.files[0])}
-          className='mt-20px'
-          />         
         </DialogContent>
         <DialogActions>
-          <button
-          onClick={handleEditClose} 
-          className='bg-red-500 text-white p-10 rounded-md col-primary-500'
-          >
-            Cancle
-          </button>
-          <button
-          onClick={handleEditSave}
-          className='bg-green-500 text-white p-10 rounded-md col-primary-500'
-          >
-           Save
-          </button>
+          <Button onClick={handleEditClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleEditSave} color="primary">
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
     </TableContainer>
   );
 };
-
 
 export default ItemList;
