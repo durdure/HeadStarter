@@ -12,5 +12,5 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 1.6rem;
-  background-image: url("../public/images/Background2.png");
+  padding: 10px;
 }

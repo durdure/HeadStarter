@@ -6,7 +6,7 @@ import ItemList from '../components/ItemList';
 import DisplayItem from '../components/DisplayItem';
 import { TextField, Typography } from '@mui/material';
 import styles from '../styles/Home.module.css';
-import NavBar from '../components/NavBar/NavBar';
+
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -31,9 +31,8 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-     <NavBar />
     <div className={styles.logoContainer}>
-        <img src="/logo.png" alt="Pantry Tracker" width="100" />
+        <h2 className={styles.logo}>Pantry</h2>
       </div>
       
      
